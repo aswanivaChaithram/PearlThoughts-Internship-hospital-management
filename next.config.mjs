@@ -2,6 +2,9 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
+  devIndicators: {
+    appIsrStatus: false,
+  },
 };
 
 export default nextConfig;
