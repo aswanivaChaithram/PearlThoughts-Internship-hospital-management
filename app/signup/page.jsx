@@ -16,7 +16,7 @@ export default function SignupPage() {
         </div>
 
         <h2 className="text-2xl font-semibold mb-4">Sign Up</h2>
-
+        
         <input
           type="text"
           placeholder="Username"

@@ -1,0 +1,68 @@
+const doctors = [
+  {
+    id: 1,
+    name: "Dr. Prakash Das",
+    role: "Sr. Psychologist",
+    time: "09:30 AM - 07:00 PM",
+    image: "/doc1.png",
+    about: "As Psychologist Dr Das practices about 7+ years.",
+  },
+  {
+    id: 2,
+    name: "Dr. Aisha Khan",
+    role: "Cardiologist",
+    time: "10:00 AM - 06:00 PM",
+    image: "/doc2.png",
+    about: "Experienced cardiologist specialising in preventive care.",
+  },
+  {
+    id: 3,
+    name: "Dr. Miguel Santos",
+    role: "Dermatologist",
+    time: "11:00 AM - 05:00 PM",
+    image: "/doc3.png",
+    about: "Skin specialist with 5+ years experience.",
+  },
+  {
+    id: 4,
+    name: "Dr. Emily Clark",
+    role: "Pediatrician",
+    time: "09:00 AM - 03:00 PM",
+    image: "/doc2.png",
+    about: "Child health and wellness expert.",
+  },
+  {
+    id: 5,
+    name: "Dr. Rajesh Kumar",
+    role: "Orthopedic Surgeon",
+    time: "08:30 AM - 04:30 PM",
+    image: "/doc4.png",
+    about: "Joint and bone specialist.",
+  },
+  {
+    id: 6,
+    name: "Dr. Sarah Lee",
+    role: "Neurologist",
+    time: "12:00 PM - 08:00 PM",
+    image: "/doc3.png",
+    about: "Neurology consultant focusing on outpatient care.",
+  },
+  {
+    id: 7,
+    name: "Dr. Jonas Müller",
+    role: "ENT Specialist",
+    time: "10:30 AM - 06:30 PM",
+    image: "/doc1.png",
+    about: "Ear, nose and throat care.",
+  },
+  {
+    id: 8,
+    name: "Dr. Lina Gomez",
+    role: "General Physician",
+    time: "09:00 AM - 05:00 PM",
+    image: "/doc2.png",
+    about: "Primary care and routine checkups.",
+  },
+];
+
+export default doctors;
