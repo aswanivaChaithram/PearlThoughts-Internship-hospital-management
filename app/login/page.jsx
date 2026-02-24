@@ -1,11 +1,46 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function LoginPage() {
+
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const handleLogin = () => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+
+    let valid = true;
+
+    // reset errors
+    setEmailError("");
+    setPasswordError("");
+
+    if (!storedUser || storedUser.email !== email) {
+      setEmailError("Incorrect Mobile / Email");
+      valid = false;
+    }
+
+    if (!storedUser || storedUser.password !== password) {
+      setPasswordError("Incorrect Password");
+      valid = false;
+    }
+
+    if (valid) {
+      localStorage.setItem("isLoggedIn", "true");
+      router.push("/doctor");
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center sm:bg-blue-100">
-      
       <div className="w-full h-screen sm:h-auto sm:w-[420px] bg-white sm:rounded-3xl sm:shadow-lg p-8 flex flex-col justify-center">
 
         {/* Logo */}
@@ -15,22 +50,26 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <h2 className="ml-4 text-4xl font-bold text-blue-500 pl-20 mb-2">Welcome</h2>
-
         <h2 className="text-2xl font-semibold mb-4">Login</h2>
 
-        {/* Email */}
-        <input
-          type="text"
+        {emailError && (
+          <p className="text-red-500 text-sm mb-2">{emailError}</p>
+        )}
+
+        <input type="text"
           placeholder="Mobile / Email"
-          className="w-full border rounded-lg p-3 mb-4 outline-none"
+          className="w-full border border-gray-400 rounded-lg p-3 mb-4 outline-none"
+          onChange={(e) => setEmail(e.target.value)}
         />
 
-        {/* Password */}
-        <input
-          type="password"
+        {passwordError && (
+          <p className="text-red-500 text-sm mb-2">{passwordError}</p>
+        )}
+
+        <input type="password"
           placeholder="Password"
-          className="w-full border rounded-lg p-3 mb-4 outline-none"
+          className="w-full border border-gray-400 rounded-lg p-3 mb-4 outline-none"
+          onChange={(e) => setPassword(e.target.value)}
         />
 
         <div className="flex justify-between items-center mb-4 text-sm">
@@ -39,10 +78,11 @@ export default function LoginPage() {
             Remember Me
           </label>
 
-          <button className="text-red-500">Forgot Password</button>
+          <button className="text-red-500 cursor-pointer">Forgot Password</button>
         </div>
 
-        <button className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-3 rounded-xl mb-6 cursor-pointer">
+        <button onClick={handleLogin}
+        className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-3 rounded-xl mb-6 cursor-pointer">
           Login
         </button>
 
@@ -52,12 +92,12 @@ export default function LoginPage() {
           <div className="flex-1 h-[1px] bg-gray-300"></div>
         </div>
 
-        <button className="w-full border rounded-xl py-3 flex items-center justify-center gap-3 cursor-pointer">
-          <span className="text-lg">G</span>
+        <button className="w-full border border-gray-400 rounded-xl py-3 flex items-center 
+        justify-center gap-3 font-semibold cursor-pointer">
+          <img src="/google.png" alt="" />
           Continue with Google
         </button>
 
-        {/* Signup Link */}
         <p className="text-center text-sm mt-10">
           Don't have an account?{" "}
           <Link href="/signup" className="text-cyan-600 font-medium">

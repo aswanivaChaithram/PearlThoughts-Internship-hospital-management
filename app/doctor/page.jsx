@@ -1,13 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import doctors from "../data/doctors";
 
 export default function Doctors() {
+
+  const router = useRouter();
+
   const [input, setInput] = useState("");
   const [query, setQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+    if (!isLoggedIn) {
+      router.push("/");
+    }
+  }, [router]);
+
+  // Logout
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    router.push("/");
+  };
 
   const filteredDoctors = doctors.filter((doc) => {
     if (!query) return true;
@@ -19,66 +37,54 @@ export default function Doctors() {
 
       <div className="w-[85%] md:w-[80%]">
 
-        <nav className="flex items-center justify-between px-4 md:px-8 py-4">
+        <nav className="flex items-center justify-between px-4 md:px-8 py-4 shadow-[0_4px_1px_-1px_rgba(0,0,0,0.1)]">
 
           <div className="flex items-center gap-3">
             <img src="/logo.jpeg" alt="logo" className="w-14 h-14" />
-            <h1 className="text-xl md:text-2xl font-bold text-blue-700">
+            <h1 className="text-xl md:text-2xl font-bold text-blue-500">
               LifeShades Hospital
             </h1>
           </div>
 
-          <div className="hidden md:flex items-center gap-10 text-lg font-bold text-blue-700">
-            <Link href="/" className="nav-link">Home</Link>
-            <Link href="/doctor" className="nav-link">Doctors</Link>
-            <Link href="/dashboard" className="nav-link">Dashboard</Link>
+          <div className="hidden md:flex items-center gap-4 text-md font-bold">
+            <Link href="/dashboard" className="text-white bg-blue-500 px-4 py-2 rounded-full">Dashboard</Link>
+            <button onClick={handleLogout}
+              className="border border-blue-500 text-red-400 px-4 py-2 rounded-full transition cursor-pointer">
+              Log Out
+            </button>
           </div>
 
-          <div className="hidden md:flex items-center gap-6">
-            <Link
-              href="/login"
-              className="bg-blue-600 text-white text-lg font-semibold px-6 py-2 rounded-full hover:bg-blue-700 transition"
-            >
-              Login
-            </Link>
-          </div>
-
-          {/* Mobile Menu Icon */}
           <button
             onClick={() => setMenuOpen(true)}
-            className="md:hidden text-2xl text-blue-700 cursor-pointer"
+            className="md:hidden text-2xl text-blue-500 cursor-pointer"
           >
             ☰
           </button>
         </nav>
 
         {/* -------- MOBILE SIDEBAR -------- */}
+
         <div className={`fixed top-0 ${menuOpen ? "right-0" : "-right-full"} 
         w-full h-screen bg-white z-50 flex flex-col items-center justify-center 
         gap-8 transition-all duration-300 md:hidden`}>
 
-          {/* Close Button */}
           <button onClick={() => setMenuOpen(false)}
             className="absolute top-8 right-10 text-xl text-blue-700 cursor-pointer">
               ✖</button>
 
-          <Link href="/" onClick={() => setMenuOpen(false)}
-            className="text-xl font-bold text-blue-700">Home</Link>
+            <Link href="/dashboard" onClick={() => setMenuOpen(false)}
+            className="text-white bg-blue-500 px-4 py-2 rounded-full">Dashboard</Link>
 
-          <Link href="/doctor" onClick={() => setMenuOpen(false)}
-            className="text-xl font-bold text-blue-700">Doctors</Link>
-
-          <Link href="/dashboard" onClick={() => setMenuOpen(false)}
-            className="text-xl font-bold text-blue-700">Dashboard</Link>
-
-          <Link href="/login" onClick={() => setMenuOpen(false)}
-            className="bg-blue-600 text-white px-10 py-2 rounded-full font-semibold">
-            Login</Link>
+            <button onClick={() => {handleLogout(); setMenuOpen(false);}}
+              className="border border-blue-500 text-red-400 px-6 py-2 rounded-full transition cursor-pointer"
+            >
+              Log Out
+            </button>
 
         </div>
 
         <div className="text-center mt-6 mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-600">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500">
             Meet Our Team
           </h2>
         </div>
@@ -90,10 +96,7 @@ export default function Doctors() {
               stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
               </svg>
-              <input
-                type="text"
-                placeholder="Search Doctor"
-                value={input}
+              <input type="text" placeholder="Search Doctor" value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => { if (e.key === 'Enter') setQuery(input); }}
                 className="ml-3 flex-1 outline-none text-sm text-gray-700 bg-transparent"
@@ -101,7 +104,7 @@ export default function Doctors() {
 
               <button
                 onClick={() => setQuery(input)}
-                className="ml-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-3 py-1 rounded-full cursor-pointer"
+                className="ml-2 bg-blue-500 text-white text-sm font-bold px-3 py-1 rounded-full cursor-pointer"
                 aria-label="Search doctors"
               >
                 Search
@@ -109,7 +112,6 @@ export default function Doctors() {
             </div>
           </div>
         </div>
-
 
         {/* Doctors Grid */}
         <div className="px-4 md:px-6 pb-10 grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
