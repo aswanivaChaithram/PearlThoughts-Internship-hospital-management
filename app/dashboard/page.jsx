@@ -178,17 +178,6 @@ export default function Dashboard() {
                       You don't have an appointment yet
                     </p>
 
-                    <p className="text-gray-500 font-semibold text-lg mb-14">
-                      Please click the button below to book an appointment.
-                    </p>
-
-                    <Link
-                      href="/doctor"
-                      className="bg-blue-500 text-white px-10 py-2 rounded-lg font-semibold"
-                    >
-                      Book Appointment
-                    </Link>
-
                   </div>
                 ) : (
                   <div className="flex flex-col gap-4">
