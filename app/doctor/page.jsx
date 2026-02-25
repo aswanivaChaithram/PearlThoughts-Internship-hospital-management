@@ -24,7 +24,7 @@ export default function Doctors() {
   // Logout
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
-    router.push("/");
+    router.replace("/");
   };
 
   const filteredDoctors = doctors.filter((doc) => {
@@ -149,15 +149,23 @@ export default function Doctors() {
                         Available today
                       </span>
 
-                      <p className="text-xs text-gray-500 mt-1">
-                        As Psychologist Dr das practices about 7+ years....
+                      <p className="text-xs text-gray-500 mt-1 mb-2">
+                        As {doc.role} {doc.name} practices about 7+ years....
                       </p>
-                    </div>
 
-                    <div className="mt-1">
-                      <span className="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full">
-                        {doc.time}
-                      </span>
+                      <div className="flex flex-col items-start gap-2">
+                        <span className="bg-gray-100 text-black font-semibold text-xs px-2 rounded-full">
+                           {doc.time}
+                        </span>
+
+                      <button onClick={() => router.push(`/book/${doc.id}`)}
+                          className="text-white bg-blue-500 rounded-full text-sm px-4 py-0.5 cursor-pointer"
+                        >
+                          Book
+                    </button>
+
+                      </div>
+                      
                     </div>
 
                   </div>
