@@ -39,10 +39,10 @@ export default function BookApp({ doctor }) {
         <div className="flex justify-around text-center mt-8">
 
           {[
-            { image: "/user.png", value: "5,000+", label: "patients" },
-            { image: "/activity.png", value: "10+", label: "years exper.." },
-            { image: "/star.png", value: "4.8", label: "rating" },
-            { image: "/chat.png", value: "4,942", label: "reviews" },
+            { image: "/User.png", value: "5,000+", label: "patients" },
+            { image: "/Activity.png", value: "10+", label: "years exper.." },
+            { image: "/Star.png", value: "4.8", label: "rating" },
+            { image: "/Chat.png", value: "4,942", label: "reviews" },
           ].map((item, i) => (
             <div key={i} className="flex flex-col items-center gap-2">
 
