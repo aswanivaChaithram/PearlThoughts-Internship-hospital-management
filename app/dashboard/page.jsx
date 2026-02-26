@@ -86,13 +86,6 @@ export default function Dashboard() {
       {/* LEFT MENU */}
       <div className="w-[18%] min-h-screen bg-white shadow-md p-4 hidden md:flex flex-col gap-6">
 
-        <Link
-          href="/doctor"
-          className="w-[70%] border border-blue-500 text-blue-500 p-2 rounded-full text-center font-semibold ml-9 cursor-pointer"
-        >
-          Book Appointment
-        </Link>
-
         <button
           onClick={() => setActiveMenu("appointments")}
           className={`p-4 rounded-lg shadow text-left font-semibold cursor-pointer
@@ -134,9 +127,10 @@ export default function Dashboard() {
         {/* ================= APPOINTMENTS ================= */}
         {activeMenu === "appointments" && (
           <>
-            <div className="flex gap-20 mb-10 font-semibold">
+            <div className="flex items-center justify-between mb-10 font-semibold">
 
-              <button
+              <div className="flex items-center justify-between gap-4 sm:gap-20 md:gap-30 font-semibold">
+                <button
                 onClick={() => setActiveTab("upcoming")}
                 className={`${activeTab === "upcoming"
                     ? "text-blue-500"
@@ -157,14 +151,22 @@ export default function Dashboard() {
               </button>
 
               <button
-                onClick={() => setActiveTab("canceled")}
-                className={`${activeTab === "canceled"
+                onClick={() => setActiveTab("cancelled")}
+                className={`${activeTab === "cancelled"
                     ? "text-blue-500"
                     : "text-gray-500"
                   } cursor-pointer`}
               >
-                Canceled
+                Cancelled
               </button>
+              </div>
+
+              <Link
+          href="/doctor"
+          className="border border-blue-500 text-blue-500 p-2 rounded-full text-center font-semibold ml-9 cursor-pointer"
+        >
+          Book Appointment
+        </Link>
 
             </div>
 
@@ -172,9 +174,9 @@ export default function Dashboard() {
             {activeTab === "upcoming" && (
               <>
                 {upcoming.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center mt-48 text-center">
+                  <div className="flex flex-col items-center justify-center mt-56 text-center">
 
-                    <p className="text-black font-semibold text-lg mb-6">
+                    <p className="text-black font-semibold text-lg">
                       You don't have an appointment yet
                     </p>
 
@@ -197,9 +199,13 @@ export default function Dashboard() {
             {activeTab === "completed" && (
               <>
                 {completed.length === 0 ? (
-                  <p className="text-black font-semibold text-lg">
-                    No Completed Appointments
-                  </p>
+                  <div className="flex items-center justify-center mt-56 text-center">
+
+                    <p className="text-black font-semibold text-lg">
+                      No Completed Appointments
+                    </p>
+
+                  </div>
                 ) : (
                   <div className="flex flex-col gap-4">
                     {completed.map((a) => (
@@ -214,12 +220,17 @@ export default function Dashboard() {
             )}
 
             {/* CANCELED */}
-            {activeTab === "canceled" && (
+            {activeTab === "cancelled" && (
               <>
                 {canceled.length === 0 ? (
-                  <p className="text-black font-semibold text-lg">
-                    No Canceled appointments
-                  </p>
+
+                  <div className="flex items-center justify-center mt-56 text-center">
+
+                    <p className="text-black font-semibold text-lg">
+                        No Cancelled appointments
+                    </p>
+
+                  </div>
                 ) : (
                   <div className="flex flex-col gap-4">
                     {canceled.map((a) => (

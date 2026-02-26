@@ -135,13 +135,13 @@ export default function ViewApp() {
             Add Patient Details
           </h3>
 
-          <button className="border border-cyan-500 text-cyan-500 px-6 py-3 rounded-xl flex items-center gap-2">
+          <button onClick={() => router.push("/PatientDetails")}
+          className="border border-cyan-500 text-cyan-500 px-6 py-3 rounded-xl flex items-center gap-2 cursor-pointer">
             + Add Patient Details
           </button>
 
         </div>
 
-        {/* View My Appointment */}
         <button
           onClick={() => router.push("/dashboard")}
           className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-4 rounded-xl text-lg mt-10 mb-10 cursor-pointer"
